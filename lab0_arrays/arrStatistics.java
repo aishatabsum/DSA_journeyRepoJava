@@ -2,7 +2,8 @@
 1.1  Array Statistics
 Objective: To calculate basic statistical values of an array
 Taskı 
-Given : an array of numerical values, determines
+Given : an array of numerical values
+Procedure:
 Sum of all elements
 Average of the elements
 Minimum element

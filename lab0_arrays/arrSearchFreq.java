@@ -15,6 +15,10 @@ public class arrSearchFreq {
     public static void main(String args[]){
        int [] numbers={0,2,3,2,5,0,0,1,2};
       int target=2; int freq=0;
+       for(int i=0; i<numbers.length; i++){
+         System.out.print(numbers[i]+" ");
+       }
+      System.out.println("Target element is: "+target);
       for(int i=0; i<numbers.length; i++){
          int index=-1;
         if(numbers[i]==target){
