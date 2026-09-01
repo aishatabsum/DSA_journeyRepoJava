@@ -1,4 +1,4 @@
-package LinkedList;
+package SinglyLinkedList;
 
 public class SinglyLinkedListWithTail<T> extends SinglyLinkedListBasic<T> {
     protected Node<T> tail;

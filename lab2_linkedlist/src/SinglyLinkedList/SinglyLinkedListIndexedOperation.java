@@ -1,4 +1,4 @@
-package LinkedList;
+package SinglyLinkedList;
 
 public class SinglyLinkedListIndexedOperation <T> extends SinglyLinkedListBasic<T> {
     public SinglyLinkedListIndexedOperation(){

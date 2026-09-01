@@ -1,25 +1,26 @@
-package LinkedList;
+package doublyLinkedList;
 
-//used where quick shuffling inserting deleting required
-//quick access k lye use array
-public class SinglyLinkedListBasic<T>{
-    //protected so that child
-    //in any package in new files may access it.
+public class doublyLinkedListWithHead<T> {
+    //operations requiring frequent track of next and prev.
+
     protected static class Node<T>{
-    protected T data;
-    protected Node<T> next;
+      protected T data;
+      protected Node<T>next;
+      protected Node<T>prev;
+
 
     public Node(T data){
     this.data=data;
-    this.next=null;
-     }
+    prev=next=null;
     }
 
-    protected Node<T> head;
+    }
+    protected Node<T>head;
 
-    public SinglyLinkedListBasic(){
+    public doublyLinkedListWithHead(){
         this.head=null;
     }
+
     //check list is empty or not
     public boolean isListEmpty(){
         return (head==null);
@@ -31,7 +32,8 @@ public class SinglyLinkedListBasic<T>{
             head=newNode;//the very first node created is head
         } else{
             newNode.next=head; //let newNode have refernce to previous head
-            head=newNode; //shift head to this fronted ele
+            head.prev=newNode;// head pointing back to new head
+            head=newNode; //shift head to this front ele
         }
     }
     //get front item
@@ -49,6 +51,8 @@ public class SinglyLinkedListBasic<T>{
             System.out.println("List is Empty. No element to remove.");
         }else{
             head=head.next;
+            if(head!=null)
+            head.prev=null;
             //if just one item is there
             //head becomes null
         }
@@ -60,9 +64,10 @@ public class SinglyLinkedListBasic<T>{
             head=newNode;
         }else{
               Node<T> current=head;
-            while(current.next!=null){
+            while(current.next!=null){ //current becomes last node
                 current=current.next;
             }
+            newNode.prev=current;
             current.next=newNode;
         }
        }
@@ -88,16 +93,17 @@ public class SinglyLinkedListBasic<T>{
         if(head.next==null){ //size is 1
             head=null;
             return;
-        }        Node<T> current=head;
-               while((current.next).next!=null){
+        }      
+          Node<T> current=head;
+         while(current.next!=null){
                 current=current.next;
             }
-            current.next=null;  
+            (current.prev).next=null;  
     }
     //find
     public boolean find(T key){
           if(isListEmpty()){
-            System.out.println("List is Empty. No element to remove.");
+            System.out.println("List is Empty. No element to find.");
             return false;
         }
     Node<T> current=head;
@@ -118,12 +124,19 @@ while(current!=null){
         }
         if(head.data.equals(key)){
             head=head.next;
+            if(head!=null)
+            head.prev=null;
+            //  System.out.println("Removed successfully!.");
            return;
         }
           Node<T> current=head;
     while(current!=null){
-        if(current.next.data.equals(key)){
-        current.next=current.next.next;
+        if(current.data.equals(key)){
+        if(current.prev!=null)
+        current.prev.next=current.next;
+        if(current.next!=null)
+       current.next.prev=current.prev;
+        // System.out.println("Removed successfully!.");
          return;
         }
             current=current.next;
@@ -154,22 +167,26 @@ while(current!=null){
       if(head.data.equals(targetKey)){
 Node <T> newNode= new Node<>(newkey); 
 newNode.next=head;
+head.prev=newNode;
 head=newNode;
+// System.out.println("added successfully!");
 return;
       }
     Node<T> current=head; 
-        while(current.next!=null){
-        if(current.next.data.equals(targetKey)){
+        while(current!=null){ 
+        if(current.data.equals(targetKey)){
 Node <T> newNode= new Node<>(newkey); 
-newNode.next=current.next;
-current.next=newNode;
+newNode.next=current;
+newNode.prev=current.prev;
+current.prev=newNode;
+current.prev.next=newNode;
+// System.out.println("added successfully!");
 return ;
         }
         current=current.next;
         }
-
+System.out.println("Could not found target key!");
     }
-
 
     public void addKeyAfterNode(T newkey,T targetKey){
        if(isListEmpty()){
@@ -181,11 +198,17 @@ return ;
         if(current.data.equals(targetKey)){
          Node <T> newNode= new Node<>(newkey); 
         newNode.next=current.next;
-       current.next=newNode;
+       newNode.prev=current;
+       if(current.next!=null)
+       current.next.prev=newNode;
+         current.next=newNode;
+    //    System.out.println("added successfully");
         return ;
         }
         current=current.next;
         }
+        System.out.println("Could not find target key!");
     }
+
 
 }

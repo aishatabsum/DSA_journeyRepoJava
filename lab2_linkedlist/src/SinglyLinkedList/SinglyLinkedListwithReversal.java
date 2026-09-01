@@ -1,4 +1,4 @@
-package LinkedList;
+package SinglyLinkedList;
 
 public class SinglyLinkedListwithReversal<T> extends SinglyLinkedListBasic<T> {
 
